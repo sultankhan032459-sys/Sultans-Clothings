@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sultaan's Wears — Tailored for the House</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#171310;
+    --ivory:#EFE8D8;
+    --emerald:#0E3B2E;
+    --emerald-deep:#0A2921;
+    --brass:#A9853F;
+    --brass-light:#C9A961;
+    --leather:#3B2A20;
+    --line: rgba(169,133,63,0.35);
+    --max: 1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:'Jost', sans-serif;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:500;
+    margin:0;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 40px;}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{outline:2px solid var(--brass-light); outline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    padding:26px 0;
+    mix-blend-mode:normal;
+    background:linear-gradient(to bottom, rgba(23,19,16,0.55), transparent);
+    transition:background .4s ease, padding .4s ease;
+  }
+  header.scrolled{
+    background:var(--ink);
+    padding:16px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .nav-row{display:flex; align-items:center; justify-content:space-between;}
+  .brand-mark{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.55rem;
+    letter-spacing:0.04em;
+    color:var(--ivory);
+  }
+  .brand-mark em{font-style:italic; color:var(--brass-light);}
+  nav ul{list-style:none; display:flex; gap:40px; margin:0; padding:0;}
+  nav a{
+    color:var(--ivory);
+    font-size:0.86rem;
+    letter-spacing:0.03em;
+    opacity:0.85;
+    position:relative;
+    padding-bottom:4px;
+  }
+  nav a::after{
+    content:"";
+    position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--brass-light);
+    transition:width .3s ease;
+  }
+  nav a:hover::after{width:100%;}
+  nav a:hover{opacity:1;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    position:relative;
+    background:
+      radial-gradient(ellipse at 70% 20%, rgba(169,133,63,0.16), transparent 55%),
+      linear-gradient(180deg, var(--ink) 0%, var(--emerald-deep) 100%);
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(115deg, transparent 0 68px, rgba(169,133,63,0.05) 68px 69px);
+    pointer-events:none;
+  }
+  .hero-inner{
+    position:relative;
+    width:100%;
+    padding-top:120px;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:40px;
+    align-items:center;
+  }
+  .hero-eyebrow{
+    color:var(--brass-light);
+    font-size:0.92rem;
+    font-style:italic;
+    font-family:'Cormorant Garamond', serif;
+    margin-bottom:18px;
+    opacity:0;
+    animation:riseIn .9s ease .15s forwards;
+  }
+  .hero h1{
+    color:var(--ivory);
+    font-size:clamp(3.2rem, 6vw, 5.6rem);
+    line-height:1.02;
+    letter-spacing:0.005em;
+    opacity:0;
+    animation:riseIn 1s ease .3s forwards;
+  }
+  .hero h1 .line2{color:var(--brass-light);}
+  .hero p.lede{
+    max-width:440px;
+    margin-top:26px;
+    color:rgba(239,232,216,0.72);
+    font-size:1.05rem;
+    line-height:1.7;
+    opacity:0;
+    animation:riseIn 1s ease .5s forwards;
+  }
+  .hero-actions{
+    margin-top:38px;
+    display:flex;
+    gap:22px;
+    align-items:center;
+    opacity:0;
+    animation:riseIn 1s ease .65s forwards;
+  }
+  .btn-primary{
+    background:var(--brass-light);
+    color:var(--ink);
+    padding:15px 34px;
+    font-size:0.9rem;
+    letter-spacing:0.03em;
+    border:1px solid var(--brass-light);
+    transition:background .3s ease, color .3s ease;
+  }
+  .btn-primary:hover{background:transparent; color:var(--brass-light);}
+  .btn-ghost{
+    color:var(--ivory);
+    font-size:0.9rem;
+    border-bottom:1px solid var(--line);
+    padding-bottom:3px;
+  }
+  .btn-ghost:hover{border-color:var(--brass-light); color:var(--brass-light);}
+
+  .hero-figure{
+    position:relative;
+    opacity:0;
+    animation:fadeInOnly 1.2s ease .4s forwards;
+  }
+  .hero-figure .frame{
+    border:1px solid var(--line);
+    padding:18px;
+  }
+  .hero-figure img{
+    width:100%;
+    height:560px;
+    object-fit:cover;
+    filter:grayscale(0.15) contrast(1.05);
+  }
+  .hero-figure .cap{
+    display:flex; justify-content:space-between;
+    margin-top:14px;
+    font-size:0.78rem;
+    letter-spacing:0.05em;
+    color:rgba(239,232,216,0.55);
+  }
+
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(18px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  @keyframes fadeInOnly{
+    from{opacity:0;}
+    to{opacity:1;}
+  }
+
+  /* ---------- SECTION HEADINGS (shared) ---------- */
+  .section{padding:120px 0;}
+  .section-head{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    align-items:end;
+    margin-bottom:70px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:28px;
+  }
+  .section-head h2{
+    font-size:clamp(2.2rem, 4vw, 3.1rem);
+    color:var(--ink);
+  }
+  .section-head .note{
+    font-size:1rem;
+    line-height:1.7;
+    color:#5a5248;
+    max-width:420px;
+    justify-self:end;
+    text-align:right;
+  }
+  @media (max-width:800px){
+    .section-head{grid-template-columns:1fr;}
+    .section-head .note{justify-self:start; text-align:left;}
+  }
+
+  /* ---------- COLLECTION ---------- */
+  .collection{background:var(--ivory);}
+  .grid-3{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:2px;
+    background:var(--line);
+  }
+  .piece{
+    background:var(--ivory);
+    padding:0;
+  }
+  .piece .shot{
+    position:relative;
+    overflow:hidden;
+    aspect-ratio:3/4;
+  }
+  .piece .shot img{
+    width:100%; height:100%; object-fit:cover;
+    transition:transform .6s ease;
+  }
+  .piece:hover .shot img{transform:scale(1.04);}
+  .piece-info{
+    padding:22px 4px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+  }
+  .piece-info h3{font-size:1.4rem; color:var(--ink);}
+  .piece-info .price{
+    font-family:'Jost', sans-serif;
+    font-size:0.85rem;
+    color:var(--brass);
+    letter-spacing:0.02em;
+  }
+  @media (max-width:900px){
+    .grid-3{grid-template-columns:1fr;}
+  }
+
+  /* ---------- HERITAGE / STORY ---------- */
+  .heritage{
+    background:var(--emerald);
+    color:var(--ivory);
+    position:relative;
+  }
+  .heritage::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:repeating-linear-gradient(115deg, transparent 0 68px, rgba(239,232,216,0.035) 68px 69px);
+  }
+  .heritage-grid{
+    position:relative;
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:70px;
+    align-items:center;
+  }
+  .heritage-grid img{
+    width:100%;
+    height:460px;
+    object-fit:cover;
+    border:1px solid rgba(239,232,216,0.2);
+  }
+  .heritage-copy .kicker{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    color:var(--brass-light);
+    font-size:1.05rem;
+    margin-bottom:16px;
+  }
+  .heritage-copy h2{
+    font-size:clamp(2.1rem, 3.6vw, 2.8rem);
+    line-height:1.15;
+    margin-bottom:24px;
+  }
+  .heritage-copy p{
+    font-size:1.02rem;
+    line-height:1.85;
+    color:rgba(239,232,216,0.78);
+    max-width:520px;
+    margin-bottom:18px;
+  }
+  .stat-row{
+    display:flex;
+    gap:52px;
+    margin-top:40px;
+    border-top:1px solid rgba(239,232,216,0.2);
+    padding-top:30px;
+  }
+  .stat h3{font-size:2.2rem; color:var(--brass-light);}
+  .stat p{font-size:0.82rem; color:rgba(239,232,216,0.65); margin-top:6px; max-width:140px; line-height:1.5;}
+  @media (max-width:850px){
+    .heritage-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- CRAFT PILLARS ---------- */
+  .pillars{background:var(--ivory);}
+  .pillar-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:60px;
+  }
+  .pillar{
+    border-top:1px solid var(--leather);
+    padding-top:26px;
+  }
+  .pillar h3{
+    font-size:1.6rem;
+    margin-bottom:14px;
+    color:var(--ink);
+  }
+  .pillar p{
+    font-size:0.98rem;
+    line-height:1.75;
+    color:#5a5248;
+  }
+  @media (max-width:800px){
+    .pillar-grid{grid-template-columns:1fr; gap:40px;}
+  }
+
+  /* ---------- BESPOKE CTA ---------- */
+  .bespoke{
+    background:var(--ink);
+    color:var(--ivory);
+    text-align:center;
+    padding:130px 0;
+  }
+  .bespoke .serif-italic{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    color:var(--brass-light);
+    font-size:1.1rem;
+    margin-bottom:20px;
+    display:block;
+  }
+  .bespoke h2{
+    font-size:clamp(2.4rem, 5vw, 3.6rem);
+    max-width:780px;
+    margin:0 auto 34px;
+    line-height:1.15;
+  }
+  .bespoke .btn-primary{display:inline-block;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--emerald-deep);
+    color:rgba(239,232,216,0.65);
+    padding:70px 0 30px;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr 1fr;
+    gap:40px;
+    padding-bottom:50px;
+    border-bottom:1px solid rgba(239,232,216,0.12);
+  }
+  .footer-grid .brand-mark{margin-bottom:16px;}
+  .footer-grid p{font-size:0.92rem; line-height:1.7; max-width:300px;}
+  .footer-col h4{
+    font-family:'Jost', sans-serif;
+    font-weight:500;
+    font-size:0.82rem;
+    letter-spacing:0.04em;
+    color:var(--ivory);
+    margin-bottom:18px;
+  }
+  .footer-col ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px;}
+  .footer-col a{font-size:0.9rem; opacity:0.8;}
+  .footer-col a:hover{opacity:1; color:var(--brass-light);}
+  .footer-bottom{
+    padding-top:26px;
+    display:flex;
+    justify-content:space-between;
+    font-size:0.8rem;
+    color:rgba(239,232,216,0.45);
+  }
+  @media (max-width:800px){
+    .footer-grid{grid-template-columns:1fr 1fr; row-gap:36px;}
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="wrap nav-row">
+    <a href="#top" class="brand-mark">Sultaan<em>'s</em> Wears</a>
+    <nav>
+      <ul>
+        <li><a href="#collection">Collection</a></li>
+        <li><a href="#heritage">Heritage</a></li>
+        <li><a href="#craft">Craft</a></li>
+        <li><a href="#bespoke">Bespoke</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap hero-inner">
+    <div>
+      <span class="hero-eyebrow">The House of Sultaan's — Est. Tailoring, Not Trend</span>
+      <h1>Dressed like<br>a <span class="line2">ruler,</span><br>built to last.</h1>
+      <p class="lede">Sultaan's Wears crafts formalwear and outerwear for men who treat clothing as an inheritance, not a purchase. Every piece is cut, stitched, and finished by hand.</p>
+      <div class="hero-actions">
+        <a href="#collection" class="btn-primary">View the Collection</a>
+        <a href="#bespoke" class="btn-ghost">Book a Fitting</a>
+      </div>
+    </div>
+    <div class="hero-figure">
+      <div class="frame">
+        <img src="https://images.unsplash.com/photo-1622497170185-5d668f816a56?w=900&q=80" alt="Man in a sharply tailored charcoal suit jacket standing confidently">
+        <div class="cap">
+          <span>The Sovereign Suit</span>
+          <span>Wool &amp; Silk Blend</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section collection" id="collection">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>This Season's<br>Standing Pieces</h2>
+      <p class="note">Not a drop, not a trend cycle — a small, permanent range that gets refined, never replaced.</p>
+    </div>
+    <div class="grid-3">
+      <div class="piece">
+        <div class="shot"><img src="https://images.unsplash.com/photo-1619533394727-57d522857f89?w=700&q=80" alt="Man in a sharp black tailored suit jacket and sunglasses"></div>
+        <div class="piece-info"><h3>The Regent Blazer</h3><span class="price">PKR 42,000</span></div>
+      </div>
+      <div class="piece">
+        <div class="shot"><img src="https://images.unsplash.com/photo-1480429370139-e0132c086e2a?w=700&q=80" alt="Man in a pinstripe tailored suit jacket"></div>
+        <div class="piece-info"><h3>The Vizier Overcoat</h3><span class="price">PKR 68,000</span></div>
+      </div>
+      <div class="piece">
+        <div class="shot"><img src="https://images.unsplash.com/photo-1591944489410-16ec1074a18e?w=700&q=80" alt="Crisp men's tailored dress shirt"></div>
+        <div class="piece-info"><h3>The Court Shirt</h3><span class="price">PKR 9,500</span></div>
+      </div>
+      <div class="piece">
+        <div class="shot"><img src="https://images.unsplash.com/photo-1631052066165-9720608b36da?w=700&q=80" alt="Man in tailored black suit trousers seated on a metal bench"></div>
+        <div class="piece-info"><h3>The Throne Trouser</h3><span class="price">PKR 15,500</span></div>
+      </div>
+      <div class="piece">
+        <div class="shot"><img src="https://images.unsplash.com/photo-1552422554-0d5af0c79fc6?w=700&q=80" alt="Pair of brown leather dress shoes"></div>
+        <div class="piece-info"><h3>The Emissary Oxford</h3><span class="price">PKR 24,000</span></div>
+      </div>
+      <div class="piece">
+        <div class="shot"><img src="https://images.unsplash.com/photo-1529635229076-82fefed713c4?w=700&q=80" alt="Man holding the notched lapel button of his suit jacket"></div>
+        <div class="piece-info"><h3>The Diwan Tie Set</h3><span class="price">PKR 6,800</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="heritage" id="heritage">
+  <div class="wrap heritage-grid">
+    <img src="https://images.unsplash.com/photo-1466027397211-20d0f2449a3f?w=800&q=80" alt="Vintage black and gold sewing machine used to hand-finish garments">
+    <div class="heritage-copy">
+      <span class="kicker">Since the first stitch</span>
+      <h2>We were founded on a simple refusal: to let good tailoring disappear.</h2>
+      <p>Sultaan's Wears began in a single-room workshop, built on the belief that a well-made garment should outlive its trend cycle by decades, not seasons. Every collar, seam, and button is placed by a tailor who has spent years earning that trust.</p>
+      <p>We still cut every pattern by hand before a single machine touches the cloth — because precision at the start is what keeps a suit honest twenty years on.</p>
+      <div class="stat-row">
+        <div class="stat"><h3>40+</h3><p>Hours of handwork per suit</p></div>
+        <div class="stat"><h3>12</h3><p>Master tailors on staff</p></div>
+        <div class="stat"><h3>3</h3><p>Generations of the same house</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section pillars" id="craft">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>What Holds<br>a Garment Together</h2>
+      <p class="note">Three commitments we don't compromise on, regardless of cost or season.</p>
+    </div>
+    <div class="pillar-grid">
+      <div class="pillar">
+        <h3>Cloth Before Cut</h3>
+        <p>We source wool, silk, and cotton from mills we've worked with for over a decade, and reject any bolt that doesn't hold its shape under wear.</p>
+      </div>
+      <div class="pillar">
+        <h3>Hand Over Machine</h3>
+        <p>Canvassing, buttonholes, and lapel rolls are finished by hand. It takes longer. It's also the difference between a suit and a costume.</p>
+      </div>
+      <div class="pillar">
+        <h3>Fit Over Fashion</h3>
+        <p>Every piece is built to a block that flatters real bodies, not runway proportions — and every fitting is free, for the life of the garment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bespoke" id="bespoke">
+  <div class="wrap">
+    <span class="serif-italic">By appointment</span>
+    <h2>Have something made that belongs only to you.</h2>
+    <a href="#" class="btn-primary">Book a Bespoke Fitting</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a href="#top" class="brand-mark">Sultaan<em>'s</em> Wears</a>
+        <p>Tailored menswear for those who dress with intent. Handcrafted in-house, fitted to the person, not the season.</p>
+      </div>
+      <div class="footer-col">
+        <h4>SHOP</h4>
+        <ul>
+          <li><a href="#collection">Suits &amp; Blazers</a></li>
+          <li><a href="#collection">Outerwear</a></li>
+          <li><a href="#collection">Shirts</a></li>
+          <li><a href="#collection">Accessories</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>HOUSE</h4>
+        <ul>
+          <li><a href="#heritage">Our Story</a></li>
+          <li><a href="#craft">Craftsmanship</a></li>
+          <li><a href="#bespoke">Bespoke Service</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>VISIT</h4>
+        <ul>
+          <li><a href="#">Islamabad Atelier</a></li>
+          <li><a href="#">Book a Fitting</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Sultaan's Wears. All rights reserved.</span>
+      <span>Handcrafted in Islamabad</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 40){ header.classList.add('scrolled'); }
+    else{ header.classList.remove('scrolled'); }
+  });
+</script>
+
+</body>
+</html>
